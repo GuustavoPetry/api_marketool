@@ -1,0 +1,15 @@
+{
+  // Define como o TypeScript irá compilar o código
+  "compilerOptions": {
+    "target": "esnext", // compila em versão moderna
+    "module": "commonjs", // formato de módulos require
+    "rootDir": "./src", // diretório principal
+    "outDir": "./dist", // diretório de produção .js
+    "strict": true, // ativa flags de tipagem rigorosa
+    "esModuleInterop": true, // permite importação com import
+    "forceConsistentCasingInFileNames": true, // ativa consistência de casing em caminhos de arquivo
+    "emitDecoratorMetadata": true, // metadados de tempo de execução, depende de experimentalDecorators
+    "experimentalDecorators": true // suporte aos decorators, essencial para TypeORM
+  },
+  "include": ["src"] // pasta que será compilado para .js no caminho ./dist
+}
