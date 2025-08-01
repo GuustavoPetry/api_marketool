@@ -27,15 +27,11 @@ export const UserController = {
         try {
             // converte string em objeto Date de forma automática
             const userData = plainToInstance(User, req.body);
-
-            console.log(userData.birthDate instanceof Date); // true
-            console.log(typeof userData.birthDate); // date
-            console.log(userData.birthDate);
-
-            const user = await UserService.create(req.body);
+            const user = await UserService.create(userData);
             res.status(201).json(user);
-        } catch {
-            res.status(500).json({erro: serverError});
+        } catch (error) {
+            console.error("Erro ao criar usuário:", error);
+            res.status(500).json({ erro: serverError });
         }
     },
 
