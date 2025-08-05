@@ -2,7 +2,7 @@
 1. ## Busca de dados básicos de ações, fiis, indíces específicos ou em listas, podendo filtrar por atributos:
     - DOC => https://brapi.dev/docs/acoes/list
     - URL:
-    - https://brapi.dev/api/quote/list?search=PETR4&sortBy=name&sortOrder=asc&limit=10&page=1&type=stock&token=SEU-TOKEN
+    - https://brapi.dev/api/quote/list?search=PETR4&sortBy=name&sortOrder=asc&limit=10&page=1&token=SEU-TOKEN
 
     RETORNO:
     {
