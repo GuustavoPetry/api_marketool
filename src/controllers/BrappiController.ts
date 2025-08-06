@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { BrappiService } from "../services/BrappiService";
 
 export const BrappiController = {
-    getAssets: async (req: Request, res: Response) => {
+    searchAssets: async (req: Request, res: Response) => {
         try {
-            const { search = "", page = "1", limit = "10"} = req.query;
+            const { search = "", page = "1", limit = "150"} = req.query;
 
             const assets = await BrappiService.searchAssets(
                 search.toString(),
@@ -17,6 +17,16 @@ export const BrappiController = {
         } catch(e) {
             console.error(e);
             res.status(500).json({ message: "Erro ao buscar ativos" });
+        }
+    },
+
+    getOneAsset: async (req: Request, res: Response) => {
+        try {
+            const { ticker } = req.params;
+            const asset = await BrappiService.getOneAsset(ticker);
+            res.json(asset);
+        } catch(e) {
+            res.status(500).json({ message: "Erro Interno"})
         }
     }
 }
