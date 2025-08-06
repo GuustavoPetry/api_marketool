@@ -29,7 +29,7 @@ interface AssetDataPrice {
 export const BrappiService = {
 
     searchAssets: async (search: string, page = 1, limit = 10): Promise<AssetResponse[]> => {
-        const url = `${BRAPPI_BASE_URL}/list?search=${search}&sortBy=name&sortOrder=asc&limit=${limit}&page=${page}&token=${BRAPPI_TOKEN}`;
+        const url = `${BRAPPI_BASE_URL}/list?search=${search}&sortBy=volume&sortOrder=desc&limit=${limit}&page=${page}&token=${BRAPPI_TOKEN}`;
         const response = await axios.get(url);
         return response.data.stocks;
     },
