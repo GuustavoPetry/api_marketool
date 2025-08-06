@@ -7,7 +7,7 @@ import { AppDataSource } from "./database/data-source";
 require("dotenv").config();
 const cors = require("cors");
 
-
+    const PORT = process.env.PORT || 3000;
     const app = express();
     app.use(express.json());
 
@@ -31,8 +31,8 @@ const cors = require("cors");
     app.use("/users", userRoutes);
     app.use("/auth", authRoutes);
     app.use("/brappi", brappiRoutes);
-    app.listen(process.env.API_PORT, () => {
+    app.listen(PORT, () => {
         console.log("Servidor Rodando na Porta :", process.env.API_PORT);
-        console.log("Banco de Dados Conectado na Porta :", process.env.DB_PORT);
+        console.log("Banco de Dados Conectado na Porta :", PORT);
     });
         
