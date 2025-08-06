@@ -32,7 +32,7 @@ const cors = require("cors");
     app.use("/auth", authRoutes);
     app.use("/brappi", brappiRoutes);
     app.listen(PORT, () => {
-        console.log("Servidor Rodando na Porta :", PORT);
-        console.log("Banco de Dados Conectado na Porta :", process.env.API_PORT);
+        console.log("Servidor Rodando na Porta :", process.env.API_PORT);
+        console.log("Banco de Dados Conectado na Porta :", PORT);
     });
         
