@@ -22,11 +22,11 @@ export class Custody {
     asset_sector!: string;
 
     // Quantidade em Custódia
-    @Column({type: "int"})
+    @Column({type: "int", default: 0})
     quantity!: number;
 
     // Valor Total Investido
-    @Column({type: "decimal", precision: 10, scale: 2})
+    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
     total_invested!: number;
 
     // Relacionamento com Usuário

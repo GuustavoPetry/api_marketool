@@ -18,15 +18,15 @@ export class Operation {
     asset_ticker!: string;
 
     // Quantidade Negociada
-    @Column({type: "int", nullable: true})
+    @Column({type: "int", default: 0})
     quantity!: number;
 
     // Preço unitário
-    @Column({type: "decimal", precision: 10, scale: 2})
+    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
     unit_price!: number;
 
     // Preço total da operação
-    @Column({type: "decimal", precision: 10, scale: 2})
+    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
     total_price!: number;
 
     // Relacionamento com Nota de Corretagem

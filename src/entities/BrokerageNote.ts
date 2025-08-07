@@ -19,11 +19,11 @@ export class BrokerageNote {
     broker!: string;
 
     // Número do Documento
-    @Column({type: "varchar", length: 20})
-    document!: string;
+    @Column({type: "varchar", length: 20, nullable: true})
+    document?: string;
 
     // Valor Total da Nota
-    @Column({type: "decimal", precision: 10, scale: 2})
+    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
     total_value!: number;
 
     // Relacionamento com Usuário
