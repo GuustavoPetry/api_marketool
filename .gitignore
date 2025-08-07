@@ -37,3 +37,7 @@ next-env.d.ts
 
 # javascript
 /dist/
+
+.idea/
+*.iml
+
