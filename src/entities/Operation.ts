@@ -3,7 +3,7 @@ import { BrokerageNote } from "./BrokerageNote";
 
 // Armazena as operações de investimentos
 // Cada operação está relacionada a uma Nota de Corretagem
-@Entity("Operation")
+@Entity("operation")
 export class Operation {
 
     @PrimaryGeneratedColumn({type: "int"})
