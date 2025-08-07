@@ -1,5 +1,8 @@
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";
+import { Operation } from "../entities/Operation";
+import { Custody } from "../entities/Custody";
+import { BrokerageNote } from "../entities/BrokerageNote";
 require("dotenv").config();
 
 export const AppDataSource = new DataSource({
@@ -9,7 +12,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
-    entities: [User],
+    entities: [User, Operation, Custody, BrokerageNote],
     migrations: ["dist/database/migrations/*.js"],
     synchronize: process.env.DB_SYNC === "true"
 });

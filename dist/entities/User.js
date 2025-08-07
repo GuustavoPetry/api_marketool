@@ -12,13 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
+const BrokerageNote_1 = require("./BrokerageNote");
+const Custody_1 = require("./Custody");
 let User = class User {
     id;
+    // Nome Completo
     fullName;
+    // Documento CPF
     cpf;
+    // Data de Nascimento
     birthDate;
+    // E-mail
     email;
+    // Credencial de Acesso
     password;
+    brokerageNotes;
+    custody;
 };
 exports.User = User;
 __decorate([
@@ -47,6 +56,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: "varchar", length: 255 }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => BrokerageNote_1.BrokerageNote, note => note.user),
+    __metadata("design:type", Array)
+], User.prototype, "brokerageNotes", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Custody_1.Custody, custody => custody.user),
+    __metadata("design:type", Array)
+], User.prototype, "custody", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)("users")
 ], User);
