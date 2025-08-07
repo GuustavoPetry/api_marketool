@@ -65,5 +65,5 @@ __decorate([
     __metadata("design:type", Array)
 ], BrokerageNote.prototype, "operations", void 0);
 exports.BrokerageNote = BrokerageNote = __decorate([
-    (0, typeorm_1.Entity)("brokerage_notes")
+    (0, typeorm_1.Entity)("brokerage_note")
 ], BrokerageNote);

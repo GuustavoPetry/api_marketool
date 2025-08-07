@@ -7,6 +7,7 @@ const Operation_1 = require("../entities/Operation");
 const Custody_1 = require("../entities/Custody");
 const BrokerageNote_1 = require("../entities/BrokerageNote");
 require("dotenv").config();
+// const isCompiled = __dirname.includes("dist");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: process.env.DB_HOST,

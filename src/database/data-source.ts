@@ -5,6 +5,8 @@ import { Custody } from "../entities/Custody";
 import { BrokerageNote } from "../entities/BrokerageNote";
 require("dotenv").config();
 
+// const isCompiled = __dirname.includes("dist");
+
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: process.env.DB_HOST,
