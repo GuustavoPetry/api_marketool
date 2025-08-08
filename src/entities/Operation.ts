@@ -1,39 +1,44 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
 import { BrokerageNote } from "./BrokerageNote";
+
+export enum OperationType {
+    COMPRA = "COMPRA",
+    VENDA = "VENDA"
+}
 
 // Armazena as operações de investimentos
 // Cada operação está relacionada a uma Nota de Corretagem
-@Entity("operation")
+@Entity("Operation")
 export class Operation {
 
     @PrimaryGeneratedColumn({type: "int"})
     id!: number;
 
     // Compra ou Venda
-    @Column({type: "char", length: 6})
-    operation_type!: string; 
+    @Column({type: "enum", enum: OperationType})
+    operationType!: OperationType; 
 
     // Ticker do ativo
     @Column({type: "char", length: 10})
-    asset_ticker!: string;
+    assetTicker!: string;
 
     // Quantidade Negociada
-    @Column({type: "int", default: 0})
+    @Column({type: "int", nullable: true})
     quantity!: number;
 
     // Preço unitário
-    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
-    unit_price!: number;
+    @Column({type: "decimal", precision: 10, scale: 2})
+    unitPrice!: number;
 
     // Preço total da operação
-    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
-    total_price!: number;
+    @Column({type: "decimal", precision: 10, scale: 2})
+    totalPrice!: number;
 
     // Relacionamento com Nota de Corretagem
-    @Column({type: "int"})
-    note_id!: number;
-    @ManyToOne(() => BrokerageNote, note => note.operations)
+    @ManyToOne(() => BrokerageNote, note => note.operations, {nullable: false})
     @JoinColumn({name: "note_id"})
     note!: BrokerageNote;
+    @RelationId((operation: Operation) => operation.note)
+    noteId!: number;
 
 }

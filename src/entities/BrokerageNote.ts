@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId } from "typeorm";
 import { User } from "./User";
 import { Operation } from "./Operation";
 
@@ -12,26 +12,26 @@ export class BrokerageNote {
 
     // Data da Nota de Corretagem
     @Column({type: "date"})
-    date!: Date;
+    date!: string;
 
     // Corretora Responsável
     @Column({type: "varchar", length: 30})
     broker!: string;
 
     // Número do Documento
-    @Column({type: "varchar", length: 20, nullable: true})
-    document?: string;
+    @Column({type: "varchar", length: 20})
+    document!: string;
 
     // Valor Total da Nota
-    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
-    total_value!: number;
+    @Column({type: "decimal", precision: 10, scale: 2})
+    totalValue!: number;
 
     // Relacionamento com Usuário
-    @Column({type: "int"})
-    user_id!: number;
-    @ManyToOne(() => User, user => user.brokerageNotes)
+    @ManyToOne(() => User, user => user.brokerageNotes, {nullable: false})
     @JoinColumn({ name: "user_id" })
     user!: User;
+    @RelationId((note: BrokerageNote) => note.user)
+    userId!: number;
 
     @OneToMany(() => Operation, operation => operation.note)
     operations!: Operation[];
