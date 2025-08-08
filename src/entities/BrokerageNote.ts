@@ -28,9 +28,10 @@ export class BrokerageNote {
 
     // Relacionamento com Usuário
     @ManyToOne(() => User, user => user.brokerageNotes, {nullable: false})
-    @JoinColumn({ name: "user_id" })
+    @JoinColumn({ name: "userId" })
     user!: User;
-    @RelationId((note: BrokerageNote) => note.user)
+
+    @Column({ name: "userId", type: "int" })
     userId!: number;
 
     @OneToMany(() => Operation, operation => operation.note)

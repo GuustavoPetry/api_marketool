@@ -36,9 +36,10 @@ export class Operation {
 
     // Relacionamento com Nota de Corretagem
     @ManyToOne(() => BrokerageNote, note => note.operations, {nullable: false})
-    @JoinColumn({name: "note_id"})
+    @JoinColumn({name: "noteId"})
     note!: BrokerageNote;
-    @RelationId((operation: Operation) => operation.note)
+
+    @Column({ name: "noteId", type: "int" })
     noteId!: number;
 
 }

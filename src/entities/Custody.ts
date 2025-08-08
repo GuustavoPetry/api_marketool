@@ -31,9 +31,10 @@ export class Custody {
 
     // Relacionamento com Usuário
     @ManyToOne(() => User, user => user.custody, {nullable: false})
-    @JoinColumn({ name: "user_id" })
+    @JoinColumn({ name: "userId" })
     user!: User;
-    @RelationId((custody: Custody) => custody.user)
+    
+    @Column({ name: "userId", type: "int" })
     userId!: number;
 
 }

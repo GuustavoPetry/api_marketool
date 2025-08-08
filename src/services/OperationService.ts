@@ -3,13 +3,13 @@ import { BrokerageNote } from "../entities/BrokerageNote";
 import { Custody } from "../entities/Custody";
 import { Operation, OperationType } from "../entities/Operation";
 
-interface CreateOperationDTO {
+export interface CreateOperationDTO {
     // Dados para tabela BrokerageNote
     userId: number;
     date: string;
     broker: string;
     document: string;
-    total_value: number;
+    totalValue: number;
     // Dados para tabela Operation
     noteId: number;
     operationType: OperationType;
@@ -24,7 +24,7 @@ const operationRepo = AppDataSource.getRepository(Operation);
 const custodyRepo = AppDataSource.getRepository(Custody);
 
 export const OperationService = {
-    registerOperation: async (dto: CreateOperationDTO) => {
+    addOperation: async (dto: CreateOperationDTO) => {
         if(!Object.values(OperationType).includes(dto.operationType)) {
             throw new Error(`Tipo de operação inválida: ${dto.operationType}`);
         }
@@ -43,6 +43,12 @@ export const OperationService = {
             if (existingNote) {
                 // Se a Nota existe captura o ID
                 noteId = existingNote.id;
+                if(dto.operationType === OperationType.COMPRA) {
+                    existingNote.totalValue = Number(existingNote.totalValue) + Number(dto.totalPrice);
+                } else {
+                    existingNote.totalValue = Number(existingNote.totalValue) - Number(dto.totalPrice);
+                }
+                await manager.save(BrokerageNote, existingNote);
             } else {
                 // Se não registra a Nota
                 const newNote = manager.create(BrokerageNote, {
@@ -50,7 +56,7 @@ export const OperationService = {
                     date: dto.date,
                     broker: dto.broker,
                     document: dto.document,
-                    total_value: dto.total_value
+                    totalValue: dto.totalPrice
                 });
                 // Salva a Nota e captura o ID
                 const savedNote = await manager.save(BrokerageNote, newNote);
@@ -81,21 +87,24 @@ export const OperationService = {
                 // Se já existe a custódia, atualiza o estoque
                 if(dto.operationType === OperationType.COMPRA) {
                     custody.quantity += dto.quantity;
-                    custody.totalInvested += dto.totalPrice;
+                    custody.totalInvested = Number(custody.totalInvested) + Number(dto.totalPrice);
                 } else if(dto.operationType === OperationType.VENDA) {
                     custody.quantity -= dto.quantity;
-                    custody.totalInvested -= dto.totalPrice;
+                    custody.totalInvested = Number(custody.totalInvested) - Number(dto.totalPrice);
                     if(custody.quantity < 0) {
                         throw new Error("Venda maior que estoque disponível");
                     }
                 }
                 await manager.save(Custody, custody);
             } else {
-                // Se não existe a custódia, faz a inserção
+                if(dto.operationType !== OperationType.COMPRA) {
+                    throw new Error("Você não possui custódia para venda");
+                }
                 const newCustody = manager.create(Custody, {
                     userId: dto.userId,
                     assetTicker: dto.assetTicker,
-                    quantity: dto.quantity
+                    quantity: dto.quantity,
+                    totalInvested: dto.totalPrice
                 });
                 await manager.save(Custody, newCustody);
             }
