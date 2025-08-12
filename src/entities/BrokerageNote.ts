@@ -15,11 +15,11 @@ export class BrokerageNote {
     date!: string;
 
     // Corretora Responsável
-    @Column({type: "varchar", length: 30})
+    @Column({type: "varchar", length: 30, nullable: true})
     broker!: string;
 
     // Número do Documento
-    @Column({type: "varchar", length: 20})
+    @Column({type: "varchar", length: 20, nullable: true})
     document!: string;
 
     // Valor Total da Nota

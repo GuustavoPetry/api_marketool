@@ -109,7 +109,7 @@ export const OperationService = {
                 await manager.save(Custody, newCustody);
             }
 
-            return { message: "Operação registrada com sucesso"};
+            return { message: "Custódia registrada com sucesso"};
 
         });
         

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BrokerageNote } from "./BrokerageNote";
 
 export enum OperationType {
@@ -8,7 +8,7 @@ export enum OperationType {
 
 // Armazena as operações de investimentos
 // Cada operação está relacionada a uma Nota de Corretagem
-@Entity("Operation")
+@Entity("operation")
 export class Operation {
 
     @PrimaryGeneratedColumn({type: "int"})
