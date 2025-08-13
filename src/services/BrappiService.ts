@@ -26,6 +26,12 @@ interface AssetDataPrice {
     adjustedClose: number
 }
 
+interface MarketData {
+    regularMarketPrice: number;
+    regularMarketChange: number;
+    regularMarketChangePercent: number;
+}
+
 export const BrappiService = {
 
     searchAssets: async (search: string, page = 1, limit = 10): Promise<AssetResponse[]> => {
@@ -34,9 +40,21 @@ export const BrappiService = {
         return response.data.stocks;
     },
 
-    getOneAsset: async (ticker: string): Promise<AssetDataPrice[]> => {
+    getHistoricalDataPrice: async (ticker: string): Promise<AssetDataPrice[]> => {
         const url = `${BRAPPI_BASE_URL}/${ticker}?token=${BRAPPI_TOKEN}&range=1mo&interval=1d&modules=summaryProfile`;
         const response = await axios.get(url);
         return response.data.results[0].historicalDataPrice;
-    }
+    },
+
+    getRegularMarketVariation: async (ticker: string): Promise<MarketData> => {
+        const url = `${BRAPPI_BASE_URL}/${ticker}?token=${BRAPPI_TOKEN}&range=1d&interval=1d&modules=summaryProfile`;
+        const response = await axios.get(url);
+        const result = response.data.results[0];
+
+        return {
+            regularMarketPrice: Number(result.regularMarketPrice),
+            regularMarketChange: Number(result.regularMarketChange),
+            regularMarketChangePercent: Number(result.regularMarketChangePercent)
+        };
+    },
 }

@@ -4,6 +4,6 @@ import { BrappiController } from "../controllers/BrappiController";
 const routes = Router();
 
 routes.get("/assets", BrappiController.searchAssets);
-routes.get("/assets/:ticker", BrappiController.getOneAsset);
+routes.get("/assets/:ticker", BrappiController.getHistoricalDataPrice);
 
 export default routes;

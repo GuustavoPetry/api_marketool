@@ -19,10 +19,6 @@ export interface CreateOperationDTO {
     totalPrice: number;
 }
 
-const brokerageNoteRepo = AppDataSource.getRepository(BrokerageNote);
-const operationRepo = AppDataSource.getRepository(Operation);
-const custodyRepo = AppDataSource.getRepository(Custody);
-
 export const OperationService = {
     addOperation: async (dto: CreateOperationDTO) => {
         if(!Object.values(OperationType).includes(dto.operationType)) {

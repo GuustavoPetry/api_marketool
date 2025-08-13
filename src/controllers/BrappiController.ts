@@ -20,10 +20,20 @@ export const BrappiController = {
         }
     },
 
-    getOneAsset: async (req: Request, res: Response) => {
+    getHistoricalDataPrice: async (req: Request, res: Response) => {
         try {
             const { ticker } = req.params;
-            const asset = await BrappiService.getOneAsset(ticker);
+            const asset = await BrappiService.getHistoricalDataPrice(ticker);
+            res.json(asset);
+        } catch(e) {
+            res.status(500).json({ message: "Erro Interno"})
+        }
+    },
+
+    getRegularMarketPrice: async (req: Request, res: Response) => {
+        try {
+            const { ticker } = req.params;
+            const asset = await BrappiService.getRegularMarketVariation(ticker);
             res.json(asset);
         } catch(e) {
             res.status(500).json({ message: "Erro Interno"})
