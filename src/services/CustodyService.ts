@@ -18,6 +18,7 @@ export class CustodyService {
 
         return custodyList.map(asset => ({
             assetTicker: asset.assetTicker,
+            quantity: Number(asset.quantity),
             totalInvested: Number(asset.totalInvested),
             percentage: (Number(asset.totalInvested) / totalInvested) * 100
         }));
